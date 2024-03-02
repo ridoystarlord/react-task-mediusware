@@ -3,32 +3,32 @@ import React, { useEffect, useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ContactDetails from "./ContactDetails";
+import { API_BASE_URL } from "../config";
 
 const USContactsModal = ({ show, setShow }) => {
   const [usContacts, setUsContacts] = useState([]);
   const [showEven, setShowEven] = useState(false);
   const [refetch, setRefetch] = useState(false);
-  const handleClose = () => setShow(false);
   const [showDetails, setShowDetails] = useState(false);
   const [currentContactData, setCurrentContactData] = useState(null);
   const [filter, setFilter] = useState("");
 
+  const handleClose = () => setShow(false);
   const getUSContacts = async () => {
     const urlParams = new URLSearchParams({
       search: filter,
       page: 1,
     }).toString();
     const response = await axios.get(
-      `https://contact.mediusware.com/api/country-contacts/United%20States/?${urlParams}`
+      `${API_BASE_URL}/country-contacts/United%20States/?${urlParams}`
     );
-    console.log("asdfn");
     setUsContacts(response.data.results);
     setRefetch(false);
   };
 
   const handleOnlyEven = (e) => {
     if (e.target.checked) {
-      setUsContacts(usContacts.filter((_, i) => i % 2 === 0));
+      setUsContacts(usContacts.filter((contact, i) => contact?.id % 2 === 0));
     } else {
       setRefetch(true);
     }

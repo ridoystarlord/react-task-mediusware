@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ContactDetails from "./ContactDetails";
+import { API_BASE_URL } from "../config";
 
 const AllContactsModal = ({ show, setShow }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -18,9 +19,7 @@ const AllContactsModal = ({ show, setShow }) => {
       search: filter,
       page: 1,
     }).toString();
-    const response = await axios.get(
-      `https://contact.mediusware.com/api/contacts/?${urlParams}`
-    );
+    const response = await axios.get(`${API_BASE_URL}/contacts/?${urlParams}`);
     setAllContacts(response.data.results);
     setRefetch(false);
   };
