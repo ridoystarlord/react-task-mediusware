@@ -30,10 +30,12 @@ const Problem2 = () => {
       <AllContactsModal
         show={showAllContactsModal}
         setShow={setShowAllContactsModal}
+        setUSShow={setShowUSContactsModal}
       />
       <USContactsModal
         show={showUSContactsModal}
         setShow={setShowUSContactsModal}
+        setAllShow={setShowAllContactsModal}
       />
     </div>
   );

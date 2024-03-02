@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import ContactDetails from "./ContactDetails";
 import { API_BASE_URL } from "../config";
 
-const AllContactsModal = ({ show, setShow }) => {
+const AllContactsModal = ({ show, setShow, setUSShow }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [currentContactData, setCurrentContactData] = useState(null);
   const [allContacts, setAllContacts] = useState([]);
@@ -66,7 +66,10 @@ const AllContactsModal = ({ show, setShow }) => {
                 color: "#ffffff",
                 borderRadius: "5px",
               }}
-              onClick={handleClose}
+              onClick={() => {
+                setShow(true);
+                setUSShow(false);
+              }}
             >
               All Contacts
             </button>
@@ -76,7 +79,10 @@ const AllContactsModal = ({ show, setShow }) => {
                 color: "#ffffff",
                 borderRadius: "5px",
               }}
-              onClick={handleClose}
+              onClick={() => {
+                setShow(false);
+                setUSShow(true);
+              }}
             >
               US Contacts
             </button>
