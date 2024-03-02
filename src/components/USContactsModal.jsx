@@ -30,10 +30,14 @@ const USContactsModal = ({ show, setShow, setAllShow }) => {
       search: filter,
       page: 1,
     }).toString();
-    const response = await axios.get(
-      `${API_BASE_URL}/country-contacts/United%20States/?${urlParams}`
-    );
-    setUsContacts(response.data.results);
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/country-contacts/United%20States/?${urlParams}`
+      );
+      setUsContacts(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
     setRefetch(false);
   };
 

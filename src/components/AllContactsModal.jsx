@@ -30,8 +30,14 @@ const AllContactsModal = ({ show, setShow, setUSShow }) => {
       search: filter,
       page: 1,
     }).toString();
-    const response = await axios.get(`${API_BASE_URL}/contacts/?${urlParams}`);
-    setAllContacts(response.data.results);
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/contacts/?${urlParams}`
+      );
+      setAllContacts(response.data.results);
+    } catch (error) {
+      console.log("Error", error);
+    }
     setRefetch(false);
   };
 
