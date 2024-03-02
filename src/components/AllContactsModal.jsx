@@ -1,8 +1,7 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 import ContactDetails from "./ContactDetails";
 
 const AllContactsModal = ({ show, setShow }) => {
@@ -57,15 +56,37 @@ const AllContactsModal = ({ show, setShow }) => {
         <Modal.Header>
           <Modal.Title>All Contacts</Modal.Title>
           <div className=" d-flex gap-2">
-            <Button variant="primary" onClick={handleClose}>
+            <button
+              style={{
+                backgroundColor: "#46139f",
+                color: "#ffffff",
+                borderRadius: "5px",
+              }}
+              onClick={handleClose}
+            >
               All Contacts
-            </Button>
-            <Button variant="warning" onClick={handleClose}>
+            </button>
+            <button
+              style={{
+                backgroundColor: "#ff7f50",
+                color: "#ffffff",
+                borderRadius: "5px",
+              }}
+              onClick={handleClose}
+            >
               US Contacts
-            </Button>
-            <Button variant="secondary" onClick={handleClose}>
+            </button>
+            <button
+              style={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                border: "1px solid #46139f",
+                borderRadius: "5px",
+              }}
+              onClick={handleClose}
+            >
               Close
-            </Button>
+            </button>
           </div>
         </Modal.Header>
         <Modal.Body>
@@ -74,8 +95,8 @@ const AllContactsModal = ({ show, setShow }) => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                  <th>Country Name</th>
+                  <th>Phone Number</th>
                 </tr>
               </thead>
               <tbody>
