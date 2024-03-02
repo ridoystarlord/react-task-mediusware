@@ -4,6 +4,7 @@ import { Form, Table } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ContactDetails from "./ContactDetails";
 import { API_BASE_URL } from "../config";
+import { ContactsButton } from "./ContactsButton";
 
 const AllContactsModal = ({ show, setShow, setUSShow }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -13,6 +14,16 @@ const AllContactsModal = ({ show, setShow, setUSShow }) => {
   const [refetch, setRefetch] = useState(false);
   const [filter, setFilter] = useState("");
   const handleClose = () => setShow(false);
+
+  const handleShowAllContacts = () => {
+    setShow(true);
+    setUSShow(false);
+  };
+
+  const handleShowUsContacts = () => {
+    setShow(false);
+    setUSShow(true);
+  };
 
   const getAllContacts = async () => {
     const urlParams = new URLSearchParams({
@@ -59,45 +70,11 @@ const AllContactsModal = ({ show, setShow, setUSShow }) => {
       >
         <Modal.Header>
           <Modal.Title>All Contacts</Modal.Title>
-          <div className=" d-flex gap-2">
-            <button
-              style={{
-                backgroundColor: "#46139f",
-                color: "#ffffff",
-                borderRadius: "5px",
-              }}
-              onClick={() => {
-                setShow(true);
-                setUSShow(false);
-              }}
-            >
-              All Contacts
-            </button>
-            <button
-              style={{
-                backgroundColor: "#ff7f50",
-                color: "#ffffff",
-                borderRadius: "5px",
-              }}
-              onClick={() => {
-                setShow(false);
-                setUSShow(true);
-              }}
-            >
-              US Contacts
-            </button>
-            <button
-              style={{
-                backgroundColor: "#ffffff",
-                color: "#000000",
-                border: "1px solid #46139f",
-                borderRadius: "5px",
-              }}
-              onClick={handleClose}
-            >
-              Close
-            </button>
-          </div>
+          <ContactsButton
+            handleShowAllContacts={handleShowAllContacts}
+            handleShowUsContacts={handleShowUsContacts}
+            handleClose={handleClose}
+          />
         </Modal.Header>
         <Modal.Body>
           <div>
