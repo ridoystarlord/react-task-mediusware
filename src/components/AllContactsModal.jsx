@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ContactDetails from "./ContactDetails";
 
@@ -10,11 +10,16 @@ const AllContactsModal = ({ show, setShow }) => {
   const [allContacts, setAllContacts] = useState([]);
   const [showEven, setShowEven] = useState(false);
   const [refetch, setRefetch] = useState(false);
+  const [filter, setFilter] = useState("");
   const handleClose = () => setShow(false);
 
   const getAllContacts = async () => {
+    const urlParams = new URLSearchParams({
+      search: filter,
+      page: 1,
+    }).toString();
     const response = await axios.get(
-      "https://contact.mediusware.com/api/contacts/?page_size=600"
+      `https://contact.mediusware.com/api/contacts/?${urlParams}`
     );
     setAllContacts(response.data.results);
     setRefetch(false);
@@ -36,7 +41,7 @@ const AllContactsModal = ({ show, setShow }) => {
 
   useEffect(() => {
     getAllContacts();
-  }, [refetch]);
+  }, [refetch, filter]);
 
   return (
     <>
@@ -90,7 +95,15 @@ const AllContactsModal = ({ show, setShow }) => {
           </div>
         </Modal.Header>
         <Modal.Body>
-          <div className="h-[500px]">
+          <div>
+            <Form>
+              <Form.Control
+                type="text"
+                placeholder="Filter Contacts"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+              />
+            </Form>
             <Table striped bordered hover>
               <thead>
                 <tr>

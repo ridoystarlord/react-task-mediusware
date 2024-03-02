@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ContactDetails from "./ContactDetails";
 
@@ -11,11 +11,17 @@ const USContactsModal = ({ show, setShow }) => {
   const handleClose = () => setShow(false);
   const [showDetails, setShowDetails] = useState(false);
   const [currentContactData, setCurrentContactData] = useState(null);
+  const [filter, setFilter] = useState("");
 
-  const getAllContacts = async () => {
+  const getUSContacts = async () => {
+    const urlParams = new URLSearchParams({
+      search: filter,
+      page: 1,
+    }).toString();
     const response = await axios.get(
-      "https://contact.mediusware.com/api/country-contacts/United%20States/?page_size=24"
+      `https://contact.mediusware.com/api/country-contacts/United%20States/?${urlParams}`
     );
+    console.log("asdfn");
     setUsContacts(response.data.results);
     setRefetch(false);
   };
@@ -34,8 +40,8 @@ const USContactsModal = ({ show, setShow }) => {
   };
 
   useEffect(() => {
-    getAllContacts();
-  }, [refetch]);
+    getUSContacts();
+  }, [refetch, filter]);
 
   return (
     <>
@@ -89,7 +95,15 @@ const USContactsModal = ({ show, setShow }) => {
           </div>
         </Modal.Header>
         <Modal.Body>
-          <div className="h-[500px]">
+          <div>
+            <Form>
+              <Form.Control
+                type="text"
+                placeholder="Filter Contacts"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+              />
+            </Form>
             <Table striped bordered hover>
               <thead>
                 <tr>
